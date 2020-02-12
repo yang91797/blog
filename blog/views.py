@@ -280,7 +280,7 @@ def get_comment_tree(request):
         t = threading.Thread(target=send_mail, args=("您的文章%s新增了一条评论内容" % article_obj.title,
                                                      content,
                                                      settings.EMAIL_HOST_USER,
-                                                     [article_user.email, "810424255@qq.com"]))
+                                                     [article_user.email, "8104xxxx@qq.com"]))
         t.start()
     else:
         article_id = request.GET.get("article_id")

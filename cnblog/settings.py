@@ -149,8 +149,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   # 用户上传的文件存储路�
 # 发送邮件配置
 EMAIL_HOST = 'smtp.qq.com'    # 163邮箱改成 smtp.163.com
 EMAIL_PORT = 465
-EMAIL_HOST_USER = '573812718@qq.com'        # 账号 ;163邮箱：aaron5718@163.com
-EMAIL_HOST_PASSWORD = 'dijttdvpqjfzbfei'  # 授权码
+EMAIL_HOST_USER = ''        # 账号
+EMAIL_HOST_PASSWORD = ''  # 授权码
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_USE_SSL = True     # ssl 证书
 
