@@ -1,0 +1,46 @@
+{% extends 'backend/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="title">
+                        <label for="">标题</label>
+                        <input type="text" name="title" value="{{ article }}">
+                    </div>
+                    <div class="foo">
+                        <label for="content">编辑</label>
+                        <textarea name="content" id="content" cols="30" rows="10" >{{ article.content }}</textarea>
+                    </div>
+
+                    <input type="submit" class="btn btn-default"id="submit">
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <script charset="utf-8" src="/static/toolkit/kindeditor-4.1.10/kindeditor-all.js"></script>
+    <script>
+        KindEditor.ready(function (K) {
+
+        window.editor = K.create('#content', {
+            minWidth: 800,
+            minHeight: 500,
+            resizeType: 0,      // 是否可调高宽
+            uploadJson: "/upload/",     // 文件上传路由请求
+            extraFileUploadParams:{
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            filePostName: "upload_img"       //  设置上传文件对应的键
+        });
+
+
+    });
+
+    </script>
+
+{% endblock %}
+

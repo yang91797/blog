@@ -1,0 +1,62 @@
+#user_icon{
+    font-size: 18px;
+    margin-right: 10px;
+    vertical-align: -3px;
+}
+
+i{
+    font-style: normal;
+}
+
+.nav{
+        padding-left: 168px;
+}
+
+.pub_info{
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.pub_info .glyphicon-comment{
+    vertical-align: -1px;
+    color: #87CEFA;
+    font-size: 14px;
+}
+
+.pub_info .glyphicon-thumbs-up{
+    color: #20B2AA;
+    font-size: 14px;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: inline-block;
+}
+
+.pub_info span{
+    padding-left: 10px;
+}
+
+.media-right{
+    font-size: 14px;
+}
+
+.digg_tips{
+    color: red;
+}
+
+.illusion a{
+    color: #404040;
+    font-size: 13px;
+}
+
+
+#avatar{
+    border-radius: 50%;
+    margin-top: -13px;
+    margin-right: 3px;
+    float: right;
+}
+
+#username{
+    float: right;
+}

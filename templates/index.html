@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/toolkit/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/blog/css/index.css">
+    <script src="/static/toolkit/jquery-3.3.1.js"></script>
+    <script src="/static/toolkit/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+</head>
+<body>
+<nav class="tab navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">博客园</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">新闻</a></li>
+                <li><a href="#">博问</a></li>
+                <li><a href="#">找找看</a></li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="/{{ request.user.username }}">
+                            <span id="username">{{ request.user.username }}</span>
+                            <img src="media/{{ request.user.avatar }}" alt="" width="45px" height="45px" id="avatar">
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">设置<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">修改密码</a></li>
+                            <li><a href="#">修改头像</a></li>
+                            <li><a href="/cn_backend/">管理</a></li>
+                            <li><a href="/logout/">注销</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"></a></li>
+                        </ul>
+                    </li>
+
+                {% else %}
+                    <li><a href="/login/">登录</a></li>
+                    <li><a href="/register/">注册</a></li>
+                {% endif %}
+
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="container-fluid">
+    <div class="row illusion">
+        <div class="col-md-2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">网站分类</div>
+                <div class="panel-body">
+                    <a href="">编程语言</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">软件设计</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">web前端</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">手机开发</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">软件工程</a>
+                </div>
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading">链接</div>
+                <div class="panel-body">
+                    <a href="">反馈或建议</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">JAVA博客</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">C++博客</a>
+                </div>
+                <div class="panel-body">
+                    <a href="">python博客</a>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">统计信息</div>
+                <div class="panel-body">博客</div>
+                <div class="panel-body">随笔</div>
+                <div class="panel-body">文章</div>
+                <div class="panel-body">评论</div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <div class="article_list">
+                {% for article in article_list %}
+                    <div class="article-item small">
+                        <h4><a href="/{{ article.user.username }}/articles/{{ article.pk }}" >{{ article.title }}</a></h4>
+                        <div class="article-desc">
+                        <span class="media-left">
+                            <a href="/{{ article.user.username }}/">
+                                <img src="media/{{ article.user.avatar }}" alt="" width="56px" height="56px">
+                            </a>
+                        </span>
+                            <span class="media-right">{{ article.desc }}</span>
+                        </div>
+
+                        <div class="small pub_info">
+                            {% csrf_token %}
+                            <span> <a href="/{{ article.user.username }}">{{ article.user.username }}</a></span>
+                            <span>发布于 &nbsp;{{ article.create_time|date:"Y-m-d H:i" }}</span> &nbsp;
+                            <a href="/{{ article.user.username }}/articles/{{ article.pk }}"><span class="glyphicon glyphicon-comment"></span> 评论({{ article.comm_count }})</a>
+                            <a href="javascript:;" class="up" class="diggit"  article_id="{{ article.pk }}">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <i>点赞({{ article.up_count }})</i>
+                            </a>
+                            <span class="digg_tips"></span>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3" style="margin-bottom: 50px">
+            <div class="panel panel-primary">
+                <div class="panel-heading">最新新闻</div>
+                <div class="panel-body">
+                    <a href="">债券和期权市场交易表明 投资者不相信特斯拉能完</a>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">48小时阅读排行</div>
+                <div class="panel-body">
+                    <a href="">Bing.com在.NET Core 2.1上运行！</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script src="/static/blog/js/index.js"></script>
+</html>

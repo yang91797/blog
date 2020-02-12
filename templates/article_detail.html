@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/blog/css/article_detail.css">
+{% endblock %}
+
+
+{% block content %}
+{% csrf_token %}
+    <div class="article_info">
+        <h3 class="text-center title">{{ article_obj.title }}</h3>
+        <div class="cont" article_id="{{ article_obj.pk }}" id="article_id">
+            {{ article_obj.content|safe }}
+        </div>
+        <div class="clearfix">
+            <div id="div_digg">
+                <div class="diggit action">
+                    <span class="diggnum" id="digg_count">{{ article_obj.up_count }}</span>
+                </div>
+                <div class="buryit action">
+                    <span class="burynum" id="bury_count">{{ article_obj.down_count }}</span>
+                </div>
+                <div class="clearfix"></div>
+                <div class="diggword" id="digg_tips" style="color: red"></div>
+            </div>
+        </div>
+
+        <div class="comments list-group">
+            <p class="tree_btn">评论树</p>
+            <div class="comment_tree">
+                {% for comment in comment_list %}
+                    {% if not comment.parent_comment_id %}
+                    <div content_id="{{ comment.pk }}" class="comm_list">
+                        <a href="" class="user_mess">
+                            <img src="media/{{ comment.user.avatar }}" alt="头像" width="20px" height="20px" style="border-radius: 50%">
+                            <span>{{ comment.user.username }}</span>
+                        </a>
+                        <span class="comment_item">{{ comment.content }}</span>
+                        <div class="precise">
+                            <span class="user_mess">{{ comment.create_time|date:"Y-m-d H:i" }}</span>
+                            <a href="javascript:;" class="reply_btn" comment_pk="{{ comment.pk }}" username="{{ comment.user.username }}">回复</a>
+                        </div>
+
+                    </div>
+                    <hr>
+
+
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+            <p>发表评论</p>
+            <p>昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="{{ request.user.username }}"></p>
+            <p>评论内容</p>
+            <textarea name="" id="comment_content" cols="60" rows="10"></textarea>
+            <p>
+                <button class="btn btn-default comment_btn btn_tree">提交评论</button>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="/static/blog/js/article_detail.js"></script>
+{% endblock %}
